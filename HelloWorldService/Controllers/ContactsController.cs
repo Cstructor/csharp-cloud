@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HelloWorldService.Models;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects,
 // visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,29 +10,31 @@ namespace HelloWorldService.Controllers
     [ApiController]
     public class ContactsController : ControllerBase
     {
+        public static List<Contact> contacts = new List<Contact>();
+
         // GET: api/<ContactsController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Contact> GetAll()
         {
-            return new string[] { "value1", "value2"};
+            return contacts;
         }
 
         // GET api/<ContactsController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Contact GetSpecific(int id)
         {
-            return "value-" + id;
+            return null;
         }
 
         // POST api/<ContactsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Contact value)
         {
         }
 
         // PUT api/<ContactsController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] Contact value)
         {
         }
 

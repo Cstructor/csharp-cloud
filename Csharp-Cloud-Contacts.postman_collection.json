@@ -1,0 +1,67 @@
+{
+	"info": {
+		"_postman_id": "155832cd-552b-4cba-b0c6-09e2ce45d1e7",
+		"name": "Csharp-Cloud-Contacts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23303"
+	},
+	"item": [
+		{
+			"name": "Get All",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{ContactService}}/api/contacts",
+					"protocol": "http",
+					"host": [
+						"{{ContactService}}"
+					],
+					"path": [
+						"api",
+						"contacts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Specific",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{ContactService}}/api/contacts/22",
+					"protocol": "http",
+					"host": [
+						"{{ContactService}}"
+					],
+					"path": [
+						"api",
+						"contacts",
+						"22"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

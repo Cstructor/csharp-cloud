@@ -8,6 +8,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddMvc().AddXmlSerializerFormatters();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
