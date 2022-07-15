@@ -31,11 +31,19 @@ namespace HelloWorldService.Controllers
 
         // POST api/<ContactsController>
         [HttpPost]
-        public void Post([FromBody] Contact value)
+        public IActionResult Post([FromBody] Contact value)
         {
             value.Id= currentId++;
             value.DateAdded = DateTime.Now;
             contacts.Add(value);
+
+            // DON'T DO THIS: return Created("Http://loc/api/contacts/"+value.Id, value);
+
+            return CreatedAtAction(
+                nameof(GetSpecific), // which method
+                new { id = value.Id }, // route id
+                value // response body
+                );
         }
 
         // PUT api/<ContactsController>/5
