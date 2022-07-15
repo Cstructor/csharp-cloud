@@ -11,6 +11,7 @@ namespace HelloWorldService.Controllers
     public class ContactsController : ControllerBase
     {
         public static List<Contact> contacts = new List<Contact>();
+        private static int currentId = 101;
 
         // GET: api/<ContactsController>
         [HttpGet]
@@ -19,29 +20,42 @@ namespace HelloWorldService.Controllers
             return contacts;
         }
 
-        // GET api/<ContactsController>/5
+        // GET api/<ContactsController>/101
         [HttpGet("{id}")]
         public Contact GetSpecific(int id)
         {
-            return null;
+            var contact = contacts.FirstOrDefault(t => t.Id == id);
+            
+            return contact;
         }
 
         // POST api/<ContactsController>
         [HttpPost]
         public void Post([FromBody] Contact value)
         {
+            value.Id= currentId++;
+            value.DateAdded = DateTime.Now;
+            contacts.Add(value);
         }
 
         // PUT api/<ContactsController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Contact value)
         {
+            var contact = contacts.FirstOrDefault(t => t.Id == id);
+
+            if (contact != null)
+            {
+                contact.Name = value.Name;
+                contact.Phones = value.Phones;
+            }
         }
 
         // DELETE api/<ContactsController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var rowsDeleted = contacts.RemoveAll(t => t.Id == id);
         }
     }
 }
