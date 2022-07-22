@@ -22,17 +22,38 @@ namespace HelloWorldService.Controllers
 
         // GET api/<ContactsController>/101
         [HttpGet("{id}")]
-        public Contact GetSpecific(int id)
+        public IActionResult GetSpecific(int id)
         {
             var contact = contacts.FirstOrDefault(t => t.Id == id);
-            
-            return contact;
+
+            if (contact == null)
+            {
+                return NotFound(null);
+            }
+
+            return Ok(contact);
         }
 
         // POST api/<ContactsController>
         [HttpPost]
         public IActionResult Post([FromBody] Contact value)
         {
+            // This will never happen, value is always instantiated
+            //if (value == null)
+            //{
+            //    return BadRequest("Invalid Contact Object");
+            //}
+
+            if (string.IsNullOrEmpty(value.Name))
+            {
+                return BadRequest(
+                    new ErrorResponse
+                    {
+                        Message = "Null or Empty Field",
+                        Field = "Name"
+                    }) ;
+            }
+
             value.Id= currentId++;
             value.DateAdded = DateTime.Now;
             contacts.Add(value);
@@ -48,7 +69,7 @@ namespace HelloWorldService.Controllers
 
         // PUT api/<ContactsController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Contact value)
+        public IActionResult Put(int id, [FromBody] Contact value)
         {
             var contact = contacts.FirstOrDefault(t => t.Id == id);
 
@@ -56,14 +77,24 @@ namespace HelloWorldService.Controllers
             {
                 contact.Name = value.Name;
                 contact.Phones = value.Phones;
+                return Ok(contact);
             }
+
+            return NotFound();
         }
 
         // DELETE api/<ContactsController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
             var rowsDeleted = contacts.RemoveAll(t => t.Id == id);
+
+            if (rowsDeleted == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok();
         }
     }
 }
